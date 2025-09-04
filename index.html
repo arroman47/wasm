@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minimal WASM Chatbot</title>
+</head>
+<body>
+  <h1>Tailor Product Chatbot</h1>
+  <input id="user-input" type="text" placeholder="Type your question here" />
+  <button onclick="sendMessage()">Send</button>
+  <div id="chat"></div>
+  <script type="module">
+    import init, { chat_response } from "./pkg/wasm_chatbot.js";
+    async function run() {
+      await init();
+      window.sendMessage = function() {
+        const input = document.getElementById("user-input").value;
+        const response = chat_response(input);
+        document.getElementById("chat").innerText = "Bot: " + response;
+      }
+    }
+    run();
+  </script>
+</body>
+</html>
